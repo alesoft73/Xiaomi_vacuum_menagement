@@ -5,7 +5,7 @@ Vacuum management, automation script. Lovelace card
 
 
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](
+[![IMAGE ALT TEXT HERE](https://github.com/alesoft73/xiaomi_vacuum_menagement/blob/main/image_1.png)](
 https://youtu.be/Zp4NeB8tifA)
 
 
