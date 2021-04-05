@@ -3,3 +3,6 @@
 
 Vacuum management, automation script. Lovelace card
 
+Description:
+
+
