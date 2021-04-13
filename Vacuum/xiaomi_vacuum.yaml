@@ -41,12 +41,12 @@ homeassistant:
       icon: 'mdi:leak'
 
 
-vacuum:
- # - platform: miio2
-  - platform: xiaomi_miio
-    host: 192.168.1.40
-    token: 38xxxxxxxxxxxxxx777468
-    name: "Jarvis Clean"
+#vacuum:  # Now integrate with Ui
+#
+#  - platform: xiaomi_miio
+#    host: 192.168.1.40
+#    token: 38xxxxxxxxxxxxxx777468
+#    name: "Jarvis Clean"
 
 camera:
   - platform: xiaomi_cloud_map_extractor
