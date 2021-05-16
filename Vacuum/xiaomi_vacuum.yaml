@@ -578,17 +578,15 @@ automation:
         to: "Alla Base"
         for: "00:05"
     condition :
-      - condition: template 
-        value_template: "{{ states.vacuum.jarvis_clean.attributes.cleaned_area > 5 }}"      
-      - condition: template 
-        value_template: "{{ states.vacuum.jarvis_clean.attributes.cleaning_time > 10 }}"
       - condition: template
-        value_template: "{{ states.sensor.vacuum_status.state|trim != 'In Carica' }}"
-      - condition: template
-        value_template: "{{ states.vacuum.jarvis_clean.state != 'error' }}"
-      - condition: template
-        value_template: "{{ states.input_select.vacuum_zone.state == 'Scegli la zona' }}" 
-    action:
+        value_template: >-
+          {{ state_attr('vacuum.jarvis_clean','battery_level') > 19 
+          and states.vacuum.jarvis_clean.attributes.cleaned_area > 5
+          and states.vacuum.jarvis_clean.attributes.cleaning_time > 10 
+          and states.sensor.vacuum_status.state|trim != 'In Carica' 
+          and states.vacuum.jarvis_clean.state|trim != 'error'
+          and states.input_select.vacuum_zone.state|trim == 'Scegli la zona' }}
+    action:    
       - delay: '00:01:00'
       - service: script.invia_video_telegram
         data:
@@ -598,7 +596,7 @@ automation:
             Puliti : {{ state_attr('vacuum.jarvis_clean','cleaned_area') }} m2{{"\n"}}
             Tipo Pulizia : {{ state_attr('vacuum.jarvis_clean','fan_speed') }}{{"\n"}}
             Passate: {{ states('input_number.vacuum_passes')|int}}
-          url: "your_site.duckdns.org/local/image/2_vacuum.gif"
+          url: "your_site.duckdns.org/local/immagini/lovelace/2_vacuum.gif"
       - delay: '00:00:03'
       - service: script.invia_foto_telegram
         data:
