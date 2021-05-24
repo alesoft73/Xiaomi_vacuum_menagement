@@ -766,6 +766,7 @@ automation:
   - id: d40f0d8c-fd61-434b-a0b2-6e0f4dc1d8ab
     alias: Vacuum - ricorda pulizia sensori
     initial_state: true
+    mode: queued
     trigger:
       - platform: template
         value_template: '{{ states.vacuum.jarvis_clean.attributes.main_brush_left|int <= 5 }}'
