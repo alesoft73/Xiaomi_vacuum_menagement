@@ -602,6 +602,12 @@ automation:
         data:
           message: '{{now().strftime("%H:%M:%S del %d.%m.%Y")}}'
           url: 'your_site.duckdns.org{{states.camera.jarvis_clean.attributes.entity_picture}}'          
+      - delay: "00:00:01"
+      - service: script.vacuum_start
+      - delay: "00:00:03"
+      - service: script.vacuum_stop
+      - delay: "00:00:02"
+      - service: script.vacuum_return_to_base
 
   - id: dd189923-d362-480d-8c8f-a880408151f6
     alias: 'Jarvis Avvio Pulizia con Allarme'
