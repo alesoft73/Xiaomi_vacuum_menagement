@@ -602,9 +602,10 @@ automation:
         data:
           message: '{{now().strftime("%H:%M:%S del %d.%m.%Y")}}'
           url: 'your_site.duckdns.org{{states.camera.jarvis_clean.attributes.entity_picture}}'          
+      ###### For Clean Map on Camera
       - delay: "00:00:01"
       - service: script.vacuum_start
-      - delay: "00:00:03"
+      - delay: "00:00:01"
       - service: script.vacuum_stop
       - delay: "00:00:02"
       - service: script.vacuum_return_to_base
@@ -674,9 +675,8 @@ automation:
               - condition: time
                 weekday:
                   - sun
-              - condition: state
-                entity_id: ['person.clark_kent','person.irene','person.mamma','person.papa']
-                state: 'not_home'
+              - condition: template
+                value_template: "{{ (states['person'] | selectattr('state', '!=' , 'home') | list | count) != 0 }}"
               - condition: state
                 entity_id: input_boolean.vacuum_active_timer
                 state: 'on'          
@@ -690,9 +690,8 @@ automation:
                   - tue
                   - thu
                   - fri
-              - condition: state
-                entity_id: ['person.clark_kent','person.irene','person.mamma','person.papa']
-                state: 'not_home'
+              - condition: template
+                value_template: "{{ (states['person'] | selectattr('state', '!=' , 'home') | list | count) != 0 }}"
               - condition: state
                 entity_id: input_boolean.vacuum_active_timer
                 state: 'on'
