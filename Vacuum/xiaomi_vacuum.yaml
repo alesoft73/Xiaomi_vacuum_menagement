@@ -676,7 +676,7 @@ automation:
                 weekday:
                   - sun
               - condition: template
-                value_template: "{{ (states['person'] | selectattr('state', '!=' , 'home') | list | count) != 0 }}"
+                value_template: "{{ (states['person'] | selectattr('state', '==' , 'home') | list | count) == 0 }}"
               - condition: state
                 entity_id: input_boolean.vacuum_active_timer
                 state: 'on'          
@@ -691,7 +691,7 @@ automation:
                   - thu
                   - fri
               - condition: template
-                value_template: "{{ (states['person'] | selectattr('state', '!=' , 'home') | list | count) != 0 }}"
+                value_template: "{{ (states['person'] | selectattr('state', '==' , 'home') | list | count) == 0 }}"
               - condition: state
                 entity_id: input_boolean.vacuum_active_timer
                 state: 'on'
