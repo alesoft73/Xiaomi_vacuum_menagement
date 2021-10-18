@@ -259,8 +259,8 @@ script:
       data:
         message: >-
           🧹<strong>Il robot ha iniziato la pulizia .... </strong>
-          {%- if states.input_select.vacuum_zone.state != 'Scegli la zona' -%}
-          <strong>della zona {{ states.input_select.vacuum_zone.state | lower }}.</strong>
+          {%- if states('input_select.vacuum_zone')|trim != 'Scegli la zona' -%}
+          <strong>della zona {{ states('input_select.vacuum_zone')|trim | lower }}.</strong>
           {%- else -%}
           <strong>della casa.</strong>
           {% endif %}
@@ -268,8 +268,8 @@ script:
       data:
         message: >-
           Sto iniziando la pulizia ...
-          {% if states.input_select.vacuum_zone.state != 'Scegli la zona' %}
-          della zona {{ states.input_select.vacuum_zone.state | lower }}.
+          {% if states('input_select.vacuum_zone')|trim != 'Scegli la zona' %}
+          della zona {{ states('input_select.vacuum_zone')|trim | lower }}.
           {% endif %}
 
   vacuum_alert_pause:
@@ -279,18 +279,18 @@ script:
       data:
         message: >-
           L'aspirapolvere è in pausa, ha smesso di pulire 
-          {% if states.input_select.vacuum_zone.state != 'Scegli la zona' %}
-           La Zona {{ states.input_select.vacuum_zone.state | lower }}.
+          {% if states('input_select.vacuum_zone')|trim != 'Scegli la zona' %}
+           La Zona {{ states('input_select.vacuum_zone')|trim | lower }}.
           {% endif %}          
-          {% if 'error' in states.vacuum.jarvis_clean.state %}Codice di errore: {{ states.vacuum.jarvis_clean.attributes.error }}.{% else %}{% endif %}
+          {% if 'error' in states('vacuum.jarvis_clean')|trim %}Codice di errore: {{ state_attr('vacuum.jarvis_clean','error') }}.{% else %}{% endif %}
     - service: script.invia_tts_mediaplayer
       data:
         message: >-
           L'aspirapolvere è in pausa, ha smesso di pulire
-          {% if states.input_select.vacuum_zone.state != 'Scegli la zona' %}
-           La Zona {{ states.input_select.vacuum_zone.state | lower }}.
+          {% if states('input_select.vacuum_zone')|trim != 'Scegli la zona' %}
+           La Zona {{ states('input_select.vacuum_zone')|trim | lower }}.
           {% endif %}          
-          {% if 'error' in states.vacuum.jarvis_clean.state %}Codice di errore: {{ states.vacuum.jarvis_clean.attributes.error }}.{% else %}{% endif %}
+          {% if 'error' in states('vacuum.jarvis_clean')|trim %}Codice di errore: {{ state_attr('vacuum.jarvis_clean','error') }}.{% else %}{% endif %}
 
   vacuum_alert_back_to_home:
     alias: Vacuum alert back to home
@@ -300,11 +300,11 @@ script:
     - service: script.invia_notifiche_telegram_html5
       data:
         message: >-
-          Il robot ha terminato la pulizia della zona {{ states.input_select.vacuum_zone.state | lower }}. Puliti {{ states.vacuum.jarvis_clean.attributes.cleaned_area }} metri quadri in {{ states.vacuum.jarvis_clean.attributes.cleaning_time }} minuti e ora si sta caricando
+          Il robot ha terminato la pulizia della zona {{ states('input_select.vacuum_zone')|trim | lower }}. Puliti {{ state_attr('vacuum.jarvis_clean','cleaned_area')|int }} metri quadri in {{  state_attr('vacuum.jarvis_clean','cleaning_time')|int }} minuti e ora si sta caricando
     - service: script.invia_tts_mediaplayer
       data:
         message: >-
-          Eccomi! Il robot ha terminato la pulizia della zona {{ states.input_select.vacuum_zone.state | lower }}. Puliti {{ states.vacuum.jarvis_clean.attributes.cleaned_area }} metri quadri in {{ states.vacuum.jarvis_clean.attributes.cleaning_time }} minuti e ora si sta caricando.
+          Eccomi! Il robot ha terminato la pulizia della zona {{ states('input_select.vacuum_zone')|trim | lower }}. Puliti {{ state_attr('vacuum.jarvis_clean','cleaned_area')|int }} metri quadri in {{ state_attr('vacuum.jarvis_clean','cleaning_time')|int }} minuti e ora si sta caricando.
 
   vacuum_alert_error:
     alias: Vacuum alert error
@@ -313,15 +313,15 @@ script:
       data:
         message: >-
           L'aspirapolvere si è fermato e ha segnalato un errore durante la pulizia .
-          {% if states.input_select.vacuum_zone.state != 'Scegli la zona' %}
-          Zona {{ states.input_select.vacuum_zone.state | lower }}.
+          {% if states('input_select.vacuum_zone') != 'Scegli la zona' %}
+          Zona {{ states('input_select.vacuum_zone')| lower }}.
           {% endif %}
     - service: script.invia_tts_mediaplayer
       data:
         message: >-
           Attenzione! L'aspirapolvere si è fermato e ha segnalato un errore durante la pulizia.
-          {% if states.input_select.vacuum_zone.state != 'Scegli la zona' %}
-          Zona {{ states.input_select.vacuum_zone.state | lower }}.
+          {% if states('input_select.vacuum_zone') != 'Scegli la zona' %}
+          Zona {{ states('input_select.vacuum_zone') | lower }}.
           {% endif %}
 
   vacuum_alert_charging:
@@ -344,7 +344,7 @@ script:
     - service: xiaomi_miio.vacuum_clean_zone
       data:
         entity_id: vacuum.jarvis_clean
-        repeats: '{{states.input_number.vacuum_passes.state|int}}'
+        repeats: '{{states("input_number.vacuum_passes")|int}}'
         zone: [[21073,22879,29873,35429]] 
     - service: script.vacuum_alert_start
   
@@ -353,7 +353,7 @@ script:
     - service: xiaomi_miio.vacuum_clean_zone
       data:
         entity_id: vacuum.jarvis_clean
-        repeats: '{{states.input_number.vacuum_passes.state|int}}'
+        repeats: '{{states("input_number.vacuum_passes")|int}}'
         zone: [[21077,22752,25477,25352]]
     - service: script.vacuum_alert_start
   
@@ -362,7 +362,7 @@ script:
     - service: xiaomi_miio.vacuum_clean_zone
       data:
         entity_id: vacuum.jarvis_clean
-        repeats: '{{states.input_number.vacuum_passes.state|int}}'
+        repeats: '{{states("input_number.vacuum_passes")|int}}'
         zone: [[21194,24853,30194,29153],[24426,29145,30026,31295]]
     - service: script.vacuum_alert_start
   vacuum_bagno_rosa:
@@ -370,7 +370,7 @@ script:
     - service: xiaomi_miio.vacuum_clean_zone
       data:
         entity_id: vacuum.jarvis_clean
-        repeats: '{{states.input_number.vacuum_passes.state|int}}'
+        repeats: '{{states("input_number.vacuum_passes")|int}}'
         zone: [[21229,29072,25029,31372]]
     - service: script.vacuum_alert_start
   vacuum_bagno_celeste:
@@ -378,7 +378,7 @@ script:
     - service: xiaomi_miio.vacuum_clean_zone
       data:
         entity_id: vacuum.jarvis_clean
-        repeats: '{{states.input_number.vacuum_passes.state|int}}'
+        repeats: '{{states("input_number.vacuum_passes")|int}}'
         zone: [[25775,22738,29825,24788]]
     - service: script.vacuum_alert_start
   vacuum_bagni:
@@ -386,7 +386,7 @@ script:
     - service: xiaomi_miio.vacuum_clean_zone
       data:
         entity_id: vacuum.jarvis_clean
-        repeats: '{{states.input_number.vacuum_passes.state|int}}'
+        repeats: '{{states("input_number.vacuum_passes")|int}}'
         zone: [[25605,22833,29805,24983],[21378,29230,24728,31380]]
     - service: script.vacuum_alert_start
   vacuum_camera:
@@ -394,7 +394,7 @@ script:
     - service: xiaomi_miio.vacuum_clean_zone
       data:
         entity_id: vacuum.jarvis_clean
-        repeats: '{{states.input_number.vacuum_passes.state|int}}'
+        repeats: '{{states("input_number.vacuum_passes")|int}}'
         zone: [[21073,31379,25923,35429]]
     - service: script.vacuum_alert_start
   vacuum_cameretta:
@@ -402,7 +402,7 @@ script:
     - service: xiaomi_miio.vacuum_clean_zone
       data:
         entity_id: vacuum.jarvis_clean
-        repeats: '{{states.input_number.vacuum_passes.state|int}}'
+        repeats: '{{states("input_number.vacuum_passes")|int}}'
         zone: [[25927,30995,30127,35395]]
     - service: script.vacuum_alert_start
   vacuum_zona_giorno:
@@ -410,7 +410,7 @@ script:
     - service: vacuum.xiaomi_clean_zone
       data:
         entity_id: vacuum.jarvis_clean
-        repeats: '{{states.input_number.vacuum_passes.state|int}}'
+        repeats: '{{states("input_number.vacuum_passes")|int}}'
         zone: [[21350,23010,25550,25160],[21294,24989,30044,29089],[24463,29107,30213,31307]]
     - service: script.vacuum_alert_start
 
@@ -485,7 +485,7 @@ sensor:
             Alla Base
           {% endif %}
         icon_template: >
-          {% set vacuumset =  states("vacuum.jarvis_clean")  %}
+          {% set vacuumset =  states("vacuum.jarvis_clean")|trim  %}
           {% if vacuumset == 'charging' %}
             mdi:battery-charging
           {% elif vacuumset == 'cleaning' %}
@@ -508,49 +508,49 @@ sensor:
       vacuum_battery:
         friendly_name: "Batteria Jarvis Cleaner"
         value_template: >
-          {% set time = states("vacuum.jarvis_clean") %}
-          {{ states.vacuum.jarvis_clean.attributes.battery_level }}
+          {% set battery = state_attr('vacuum.jarvis_clean','battery_level')|int %}
+          {{ battery }}
         unit_of_measurement: '%'
-        icon_template: '{{ states.vacuum.jarvis_clean.attributes.battery_icon }}'
+        icon_template:  "{{ state_attr('vacuum.jarvis_clean','battery_icon')|trim }}"
   
 
       vacuum_cleaned_area:
         friendly_name: "Ultima area Pulita"
         unit_of_measurement: 'm²'
         value_template: >
-          {% set time = states("vacuum.jarvis_clean") %}
-          {{ states.vacuum.jarvis_clean.attributes.cleaned_area }}
+          {% set area = state_attr('vacuum.jarvis_clean','cleaned_area') | int %}
+          {{ area }}
         icon_template: 'mdi:ruler'
       
       vacuum_cleaned_time:
           friendly_name: "Timer Pulizia"
           unit_of_measurement: 'min'
-          value_template: '{{ states.vacuum.jarvis_clean.attributes.cleaning_time }}'
+          value_template: "{{ state_attr('vacuum.jarvis_clean','cleaning_time')|int }}"
           icon_template: 'mdi:clock'
       
       vacuum_fan_speed:
           friendly_name: "Timer Pulizia"
           unit_of_measurement: ''
           value_template: >
-            {% set time = states("vacuum.jarvis_clean") %}
-            {{ states.vacuum.jarvis_clean.attributes.fan_speed }}
+            {% set speed = state_attr('vacuum.jarvis_clean','fan_speed')|trim  %}
+            {{ speed }}
           icon_template: 'mdi:fan'    
       
       vacuum_main_brush:
         friendly_name: "Vacuum - Spazzola Principale"
-        value_template: "Spazzola Principale: {{ states.vacuum.jarvis_clean.attributes.main_brush_left }} h"
+        value_template: "Spazzola Principale: {{ state_attr('vacuum.jarvis_clean','main_brush_left')|int }} h"
       
       vacuum_side_brush:
         friendly_name: "Vacuum - Spazzola Laterale"
-        value_template: "Spazzola Laterale: {{ states.vacuum.jarvis_clean.attributes.side_brush_left }} h"
+        value_template: "Spazzola Laterale: {{ state_attr('vacuum.jarvis_clean','side_brush_left')|int }} h"
       
       vacuum_filter:
         friendly_name: "Vacuum - Filtro"
-        value_template: "Filtro: {{ states.vacuum.jarvis_clean.attributes.filter_left }} h"
+        value_template: "Filtro: {{ state_attr('vacuum.jarvis_clean','filter_left')|int }} h"
       
       vacuum_sensor:
         friendly_name: "Vacuum - Sensori"
-        value_template: "Sensori: {{ states.vacuum.jarvis_clean.attributes.sensor_dirty_left }} h"
+        value_template: "Sensori: {{ state_attr('vacuum.jarvis_clean','sensor_dirty_left')|int }} h"
         
       
       vacuum_start_time_weekdays:
@@ -580,12 +580,12 @@ automation:
     condition :
       - condition: template
         value_template: >-
-          {{ state_attr('vacuum.jarvis_clean','battery_level') > 19 
-          and states.vacuum.jarvis_clean.attributes.cleaned_area > 5
-          and states.vacuum.jarvis_clean.attributes.cleaning_time > 10 
-          and states.sensor.vacuum_status.state|trim != 'In Carica' 
-          and states.vacuum.jarvis_clean.state|trim != 'error'
-          and states.input_select.vacuum_zone.state|trim == 'Scegli la zona' }}
+          {{ state_attr('vacuum.jarvis_clean','battery_level')|int > 19 
+          and state_attr('vacuum.jarvis_clean','cleaned_area')|int > 5
+          and state_attr('vacuum.jarvis_clean','cleaning_time')|int > 10 
+          and states('sensor.vacuum_status')|trim != 'In Carica' 
+          and states('vacuum.jarvis_clean')|trim != 'error'
+          and states('input_select.vacuum_zone')|trim == 'Scegli la zona' }}
     action:    
       - delay: '00:01:00'
       - service: script.invia_video_telegram
@@ -601,7 +601,7 @@ automation:
       - service: script.invia_foto_telegram
         data:
           message: '{{now().strftime("%H:%M:%S del %d.%m.%Y")}}'
-          url: 'your_site.duckdns.org{{states.camera.jarvis_clean.attributes.entity_picture}}'          
+          url: 'your_site.duckdns.org{{state_attr("camera.jarvis_clean","entity_picture")}}'          
       ###### For Clean Map on Camera
       - delay: "00:00:01"
       - service: script.vacuum_start
@@ -664,14 +664,14 @@ automation:
     initial_state: true
     trigger:
       - platform: template
-        value_template: '{{ states.sensor.vacuum_start_time_weekend.state == states.sensor.time.state }}'
+        value_template: '{{ states("sensor.vacuum_start_time_weekend") == states("sensor.time") }}'
       - platform: template
-        value_template: '{{ states.sensor.vacuum_start_time_weekdays.state == states.sensor.time.state }}'
+        value_template: '{{ states("sensor.vacuum_start_time_weekdays") == states("sensor.time") }}'
     action:
       - choose:
           - conditions:
               - condition: template
-                value_template: '{{ states.sensor.vacuum_start_time_weekend.state == states.sensor.time.state }}'            
+                value_template: '{{ states("sensor.vacuum_start_time_weekend") == states("sensor.time") }}'            
               - condition: time
                 weekday:
                   - sun
@@ -684,7 +684,7 @@ automation:
               - service: script.vacuum_tutta_casa
           - conditions:
               - condition: template
-                value_template: '{{ states.sensor.vacuum_start_time_weekdays.state == states.sensor.time.state }}'
+                value_template: '{{ states("sensor.vacuum_start_time_weekdays") == states("sensor.time") }}'
               - condition: time
                 weekday:
                   - tue
@@ -736,23 +736,23 @@ automation:
       from: 'Scegli la zona'
     action:
       - service_template: >
-          {% if states.input_select.vacuum_zone.state == "Tutta Casa" %}
+          {% if states('input_select.vacuum_zone') == "Tutta Casa" %}
             script.vacuum_tutta_casa
-          {% elif states.input_select.vacuum_zone.state == "Cucina" %}
+          {% elif states('input_select.vacuum_zone') == "Cucina" %}
             script.vacuum_cucina
-          {% elif states.input_select.vacuum_zone.state == "Sala" %}
+          {% elif states('input_select.vacuum_zone') == "Sala" %}
             script.vacuum_sala
-          {% elif states.input_select.vacuum_zone.state == "Bagno Rosa" %}
+          {% elif states('input_select.vacuum_zone') == "Bagno Rosa" %}
             script.vacuum_bagno_rosa
-          {% elif states.input_select.vacuum_zone.state == "Bagno Celeste" %}
+          {% elif states('input_select.vacuum_zone') == "Bagno Celeste" %}
             script.vacuum_bagno_celeste
-          {% elif states.input_select.vacuum_zone.state == "Camera Matrimoniale" %}
+          {% elif states('input_select.vacuum_zone') == "Camera Matrimoniale" %}
             script.vacuum_camera
-          {% elif states.input_select.vacuum_zone.state == "Cameretta" %}
+          {% elif states('input_select.vacuum_zone') == "Cameretta" %}
             script.vacuum_cameretta
-          {% elif states.input_select.vacuum_zone.state == "Zona giorno" %}
+          {% elif states('input_select.vacuum_zone') == "Zona giorno" %}
             script.vacuum_zona_giorno
-          {% elif states.input_select.vacuum_zone.state == "Solo Bagni" %}
+          {% elif states('input_select.vacuum_zone') == "Solo Bagni" %}
             script.vacuum_bagni
           {% else %}
           {% endif %}
@@ -774,29 +774,29 @@ automation:
     mode: queued
     trigger:
       - platform: template
-        value_template: '{{ states.vacuum.jarvis_clean.attributes.main_brush_left|int <= 5 }}'
+        value_template: "{{ state_attr('vacuum.jarvis_clean','main_brush_left')|int <= 5 }}"
       - platform: template
-        value_template: '{{ states.vacuum.jarvis_clean.attributes.side_brush_left|int <= 5 }}'
+        value_template: "{{ state_attr('vacuum.jarvis_clean','side_brush_left')|int <= 5 }}"
       - platform: template
-        value_template: '{{ states.vacuum.jarvis_clean.attributes.filter_left|int <=  5 }}'
+        value_template: "{{ state_attr('vacuum.jarvis_clean','filter_left')|int <=  5 }}"
       - platform: template
-        value_template: '{{ states.vacuum.jarvis_clean.attributes.sensor_dirty_left|int <= 5 }}'                
+        value_template: "{{ state_attr('vacuum.jarvis_clean','sensor_dirty_left')|int <= 5 }}"         
     action:
       - service: script.invia_notifiche_telegram_html5
         data:
           message: >-
             <strong>🆘 Il Vacuum ha bisogno del tagliando :</strong> {{"\n"}}
-             {%- if states.vacuum.jarvis_clean.attributes.main_brush_left <= 5 %}
-             🧹 Pulizia Spazzola laterale, mancano {{ states.vacuum.jarvis_clean.attributes.main_brush_left }} h alla saturazione
+             {%- if state_attr('vacuum.jarvis_clean','main_brush_left')|int <= 5 %}
+             🧹 Pulizia Spazzola laterale, mancano {{ state_attr('vacuum.jarvis_clean','main_brush_left')|int }} h alla saturazione
              {% endif %}
-             {%- if states.vacuum.jarvis_clean.attributes.side_brush_left|int <= 5 %}
-             🚿 Pulizia Spazzola principale, mancano {{ states.vacuum.jarvis_clean.attributes.side_brush_left }} h alla saturazione
+             {%- if state_attr('vacuum.jarvis_clean','side_brush_left')|int <= 5 %}
+             🚿 Pulizia Spazzola principale, mancano {{ state_attr('vacuum.jarvis_clean','side_brush_left')|int }} h alla saturazione
              {% endif %}
-             {%- if states.vacuum.jarvis_clean.attributes.filter_left|int <= 5 %}
-             🩸 Pulizia Filtro, mancano {{ states.vacuum.jarvis_clean.attributes.filter_left }} h alla saturazione
+             {%- if state_attr('vacuum.jarvis_clean','filter_left')|int <= 5 %}
+             🩸 Pulizia Filtro, mancano {{ state_attr('vacuum.jarvis_clean','filter_left')|int }} h alla saturazione
              {% endif %}
-             {%- if states.vacuum.jarvis_clean.attributes.sensor_dirty_left|int <= 5 %}
-             🧽 Pulizia Sensori, mancano {{ states.vacuum.jarvis_clean.attributes.sensor_dirty_left }} h alla saturazione
+             {%- if state_attr('vacuum.jarvis_clean','sensor_dirty_left')|int <= 5 %}
+             🧽 Pulizia Sensori, mancano {{ state_attr('vacuum.jarvis_clean','sensor_dirty_left')|int }} h alla saturazione
              {% endif %}
 
       - service: notify.telegram
@@ -811,17 +811,17 @@ automation:
         data:
           message: >-
              Il Vacuum ha bisogno del tagliando :
-             {% if states.vacuum.jarvis_clean.attributes.main_brush_left <= 5 %}
-             Pulizia Spazzola laterale, mancano {{ states.vacuum.jarvis_clean.attributes.main_brush_left }} ore alla saturazione
+             {% if state_attr('vacuum.jarvis_clean','main_brush_left')|int <= 5 %}
+             Pulizia Spazzola laterale, mancano {{ state_attr('vacuum.jarvis_clean','main_brush_left')|int }} ore alla saturazione
              {% endif %}
-             {% if states.vacuum.jarvis_clean.attributes.side_brush_left|int <= 5 %}
-             Pulizia Spazzola principale, mancano {{ states.vacuum.jarvis_clean.attributes.side_brush_left }} ore alla saturazione
+             {% if state_attr('vacuum.jarvis_clean','side_brush_left')|int <= 5 %}
+             Pulizia Spazzola principale, mancano {{ state_attr('vacuum.jarvis_clean','side_brush_left')|int }} ore alla saturazione
              {% endif %}
-             {% if states.vacuum.jarvis_clean.attributes.filter_left|int <= 5 %}
-             Pulizia Filtro, mancano {{ states.vacuum.jarvis_clean.attributes.filter_left }} ore alla saturazione
+             {% if state_attr('vacuum.jarvis_clean','filter_left')|int <= 5 %}
+             Pulizia Filtro, mancano {{ state_attr('vacuum.jarvis_clean','filter_left')|int }} ore alla saturazione
              {% endif %}
-             {% if states.vacuum.jarvis_clean.attributes.sensor_dirty_left|int <= 5 %}
-             Pulizia Sensori, mancano {{ states.vacuum.jarvis_clean.attributes.sensor_dirty_left }} ore alla saturazione
+             {% if state_attr('vacuum.jarvis_clean','sensor_dirty_left')|int <= 5 %}
+             Pulizia Sensori, mancano {{ state_attr('vacuum.jarvis_clean','sensor_dirty_left')|int }} ore alla saturazione
              {% endif %}    
 
   - id: 70fec8be-ad27-451f-a976-77eb55e92e18
@@ -841,7 +841,7 @@ automation:
       - choose:
         - conditions:
             - condition: template
-              value_template: "{{ states.vacuum.jarvis_clean.attributes.main_brush_left <= 5 }}"
+              value_template: "{{ state_attr('vacuum.jarvis_clean','main_brush_left')|int <= 5 }}"
             - condition: template
               value_template: "{{ 'true' if  trigger.event.data.data|trim in ['/Si_vacuum'] else 'false' }}"
           sequence:
@@ -856,7 +856,7 @@ automation:
             - service: script.reset_main_brush_left_work_time
         - conditions:
             - condition: template
-              value_template: "{{ states.vacuum.jarvis_clean.attributes.side_brush_left|int <= 5 }}"
+              value_template: "{{ state_attr('vacuum.jarvis_clean','side_brush_left')|int <= 5 }}"
             - condition: template
               value_template: "{{ 'true' if  trigger.event.data.data|trim in ['/Si_vacuum'] else 'false' }}"
           sequence:
@@ -871,7 +871,7 @@ automation:
             - service: script.reset_side_brush_work_time
         - conditions:
             - condition: template
-              value_template: "{{ states.vacuum.jarvis_clean.attributes.filter_left|int <= 5 }}"
+              value_template: "{{ state_attr('vacuum.jarvis_clean','filter_left')|int <= 5 }}"
             - condition: template
               value_template: "{{ 'true' if  trigger.event.data.data|trim in ['/Si_vacuum'] else 'false' }}"
           sequence:
@@ -886,7 +886,7 @@ automation:
             - service: script.reset_filter_work_time
         - conditions:
             - condition: template
-              value_template: "{{ states.vacuum.jarvis_clean.attributes.sensor_dirty_left|int <= 5 }}"
+              value_template: "{{ state_attr('vacuum.jarvis_clean','sensor_dirty_left')|int <= 5 }}"
             - condition: template
               value_template: "{{ 'true' if  trigger.event.data.data|trim in ['/Si_vacuum'] else 'false' }}"
           sequence:
