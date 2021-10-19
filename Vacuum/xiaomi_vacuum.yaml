@@ -935,6 +935,8 @@ automation:
           #- mon
           - mon
     action:
+     - wait_template: "{{ states('vacuum.jarvis_clean') not in ['unavailable','unknown','none'] }}"
+       timeout: "00:30:00"    
      - service: xiaomi_miio.vacuum_goto
        entity_id: vacuum.jarvis_clean
        data:
