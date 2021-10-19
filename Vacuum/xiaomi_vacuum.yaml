@@ -586,7 +586,9 @@ automation:
           and states('sensor.vacuum_status')|trim != 'In Carica' 
           and states('vacuum.jarvis_clean')|trim != 'error'
           and states('input_select.vacuum_zone')|trim == 'Scegli la zona' }}
-    action:    
+    action: 
+      - wait_template: "{{ states('vacuum.jarvis_clean') not in ['unavailable','unknown','none'] }}"
+        timeout: "00:30:00"    
       - delay: '00:01:00'
       - service: script.invia_video_telegram
         data:
