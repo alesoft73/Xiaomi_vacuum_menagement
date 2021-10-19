@@ -781,6 +781,9 @@ automation:
         value_template: "{{ state_attr('vacuum.jarvis_clean','filter_left')|int <=  5 }}"
       - platform: template
         value_template: "{{ state_attr('vacuum.jarvis_clean','sensor_dirty_left')|int <= 5 }}"         
+    condition:
+      - condition: template
+        value_template: "{{ states('vacuum.jarvis_clean') not in ['unavailable','unknown','none'] }}"    
     action:
       - service: script.invia_notifiche_telegram_html5
         data:
