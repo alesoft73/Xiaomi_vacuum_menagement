@@ -511,9 +511,14 @@ sensor:
           {% set battery = state_attr('vacuum.jarvis_clean','battery_level')|int %}
           {{ battery }}
         unit_of_measurement: '%'
-        icon_template:  "{{ state_attr('vacuum.jarvis_clean','battery_icon')|trim }}"
+        icon_template: >
+         {% set battery = state_attr('vacuum.jarvis_clean','battery_icon')|trim|lower %}
+         {% if battery is not in ['none','unknown','unavailable'] %}
+           {{ battery }}
+         {% else %}
+           mdi:battery-charging-wireless-alert
+         {% endif %}        
   
-
       vacuum_cleaned_area:
         friendly_name: "Ultima area Pulita"
         unit_of_measurement: 'm²'
