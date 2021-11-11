@@ -528,7 +528,7 @@ sensor:
       vacuum_cleaned_time:
           friendly_name: "Timer Pulizia"
           unit_of_measurement: 'min'
-          value_template: "{{ states('sensor.jarvis_clean_last_clean_duration')|int }}"
+          value_template: "{{(states('sensor.jarvis_clean_last_clean_duration')|int/60)|int }}"
           icon_template: 'mdi:clock'
       
       vacuum_fan_speed:
