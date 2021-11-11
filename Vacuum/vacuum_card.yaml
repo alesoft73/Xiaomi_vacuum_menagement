@@ -244,8 +244,8 @@ elements:
     icon: 'mdi:select-all'
     style:
       color: transparent
-      left: 28%
-      top: 20%
+      left: 38%
+      top: 21%
       z-index: 1
       padding: 5px 5px
       transform: 'scale(0.7,0.7)'
@@ -257,8 +257,8 @@ elements:
     prefix: 'Sala '
     style:
       color: transparent
-      left: 33%
-      top: 20%
+      left: 44%
+      top: 21%
       z-index: 1
       padding: 5px 5px
       transform: 'scale(0.7,0.7)'
@@ -303,7 +303,7 @@ elements:
     icon: 'mdi:select-all'
     style:
       color: transparent
-      left: 28%
+      left: 39%
       top: 1.5%
       z-index: 1
       padding: 5px 5px
@@ -316,7 +316,7 @@ elements:
     prefix: 'Sala '
     style:
       color: transparent
-      left: 33%
+      left: 44%
       top: 1.5%
       z-index: 1
       padding: 5px 5px
