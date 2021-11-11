@@ -40,7 +40,7 @@ homeassistant:
     sensor.vacuum_sensor:
       icon: 'mdi:leak'
 
-
+# Declare into integration UI Xiaomi MIIO
 #vacuum:
 #  - platform: xiaomi_miio
 #    host: 192.168.1.40
@@ -522,15 +522,13 @@ sensor:
       vacuum_cleaned_area:
         friendly_name: "Ultima area Pulita"
         unit_of_measurement: 'm²'
-        value_template: >
-          {% set area = state_attr('vacuum.jarvis_clean','cleaned_area') | int %}
-          {{ area }}
+        value_template: "{{ states('sensor.jarvis_clean_last_clean_area')}}"
         icon_template: 'mdi:ruler'
       
       vacuum_cleaned_time:
           friendly_name: "Timer Pulizia"
           unit_of_measurement: 'min'
-          value_template: "{{ state_attr('vacuum.jarvis_clean','cleaning_time')|int }}"
+          value_template: "{{ states('sensor.jarvis_clean_last_clean_duration')|int }}"
           icon_template: 'mdi:clock'
       
       vacuum_fan_speed:
@@ -543,19 +541,19 @@ sensor:
       
       vacuum_main_brush:
         friendly_name: "Vacuum - Spazzola Principale"
-        value_template: "Spazzola Principale: {{ state_attr('vacuum.jarvis_clean','main_brush_left')|int }} h"
+        value_template: "Spazzola Principale: {{ (states('sensor.jarvis_clean_main_brush_left')|float/3600)|int }} h"
       
       vacuum_side_brush:
         friendly_name: "Vacuum - Spazzola Laterale"
-        value_template: "Spazzola Laterale: {{ state_attr('vacuum.jarvis_clean','side_brush_left')|int }} h"
+        value_template: "Spazzola Laterale: {{ (states('sensor.jarvis_clean_side_brush_left')|float/3600)|int }} h"
       
       vacuum_filter:
         friendly_name: "Vacuum - Filtro"
-        value_template: "Filtro: {{ state_attr('vacuum.jarvis_clean','filter_left')|int }} h"
+        value_template: "Filtro: {{ (states('sensor.jarvis_clean_filter_left')|float/3600)|int }} h"
       
       vacuum_sensor:
         friendly_name: "Vacuum - Sensori"
-        value_template: "Sensori: {{ state_attr('vacuum.jarvis_clean','sensor_dirty_left')|int }} h"
+        value_template: "Sensori: {{ (states('sensor.jarvis_clean_sensor_dirty_left')|float/3600)|int }} h"
         
       
       vacuum_start_time_weekdays:
