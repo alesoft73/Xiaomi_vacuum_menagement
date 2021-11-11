@@ -244,11 +244,11 @@ elements:
     icon: 'mdi:select-all'
     style:
       color: transparent
-      left: 143px
-      top: 21%
+      left: 29%
+      top: 22%
       z-index: 1
-      padding: 5px 5px
-      transform: scale(0.5,2)
+      padding: 0
+      transform: scale(0.5,0.5)
     tap_action:
       action: more-info
   - type: icon
@@ -256,11 +256,11 @@ elements:
     icon: 'mdi:select-all'
     style:
       color: transparent
-      left: 163px
-      top: 21%
+      left: 32.5%
+      top: 22%
       z-index: 1
-      padding: 5px 5px
-      transform: scale(0.5,2)
+      padding: 0
+      transform: scale(0.5,0.5)
     tap_action:
       action: more-info
   - type: state-label
@@ -298,11 +298,11 @@ elements:
     icon: 'mdi:select-all'
     style:
       color: transparent
-      left: 143px
-      top: 1.5%
+      left: 29%
+      top: 2%
       z-index: 1
-      padding: 5px 5px
-      transform: scale(0.5,2)
+      padding: 0
+      transform: scale(0.5,0.5)
     tap_action:
       action: more-info
   - type: icon
@@ -310,11 +310,11 @@ elements:
     icon: 'mdi:select-all'
     style:
       color: transparent
-      left: 163px
-      top: 1.5%
+      left: 33%
+      top: 2%
       z-index: 1
-      padding: 5px 5px
-      transform: scale(0.5,2)
+      padding: 0
+      transform: scale(0.5,0.5)
     tap_action:
       action: more-info
   - type: icon
