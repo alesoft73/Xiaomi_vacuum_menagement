@@ -236,7 +236,7 @@ elements:
       top: 40.8%
       z-index: 1
       padding: 4px 35px
-      transform: 'scale(0.8,0.8)'
+      transform: scale(0.8,0.8)
     tap_action:
       action: more-info
   - type: icon
@@ -244,24 +244,23 @@ elements:
     icon: 'mdi:select-all'
     style:
       color: transparent
-      left: 38%
+      left: 143px
       top: 21%
       z-index: 1
       padding: 5px 5px
-      transform: 'scale(0.7,0.7)'
+      transform: scale(0.5,2)
     tap_action:
       action: more-info
   - type: icon
     entity: input_number.vacuum_start_minutes_weekend
     icon: 'mdi:select-all'
-    prefix: 'Sala '
     style:
       color: transparent
-      left: 44%
+      left: 163px
       top: 21%
       z-index: 1
       padding: 5px 5px
-      transform: 'scale(0.7,0.7)'
+      transform: scale(0.5,2)
     tap_action:
       action: more-info
   - type: state-label
@@ -279,8 +278,6 @@ elements:
       color: var(--icon-color)
       line-height: 15px
       padding: 4px 35px
-    tap_action:
-      action: more-info
   - type: state-label
     entity: sensor.vacuum_start_time_weekdays
     prefix: 'Time WD : '
@@ -296,31 +293,28 @@ elements:
       color: var(--icon-color)
       line-height: 15px
       padding: 4px 35px
-    tap_action:
-      action: more-info
   - type: icon
     entity: input_number.vacuum_start_hour_weekdays
     icon: 'mdi:select-all'
     style:
       color: transparent
-      left: 39%
+      left: 143px
       top: 1.5%
       z-index: 1
       padding: 5px 5px
-      transform: 'scale(0.7,0.7)'
+      transform: scale(0.5,2)
     tap_action:
       action: more-info
   - type: icon
     entity: input_number.vacuum_start_minutes_weekdays
     icon: 'mdi:select-all'
-    prefix: 'Sala '
     style:
       color: transparent
-      left: 44%
+      left: 163px
       top: 1.5%
       z-index: 1
       padding: 5px 5px
-      transform: 'scale(0.7,0.7)'
+      transform: scale(0.5,2)
     tap_action:
       action: more-info
   - type: icon
@@ -332,7 +326,7 @@ elements:
       top: 40.8%
       z-index: 1
       padding: 4px 35px
-      transform: 'scale(0.8,0.8)'
+      transform: scale(0.8,0.8)
     tap_action:
       action: toggle
 
