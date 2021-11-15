@@ -336,42 +336,75 @@ elements:
         conditions:
           - entity: input_boolean.vacuum_zone_settings
             state: "on"
-        card:             
+        card:                  
           type: custom:xiaomi-vacuum-map-card
           style: |
             ha-card {
               background: none;                
               box-shadow: 0px 0px 0px 0px rgba(255, 255, 240, 0.0);
-              }          
+              }            
           entity: vacuum.jarvis_clean
-          language: it
-          map_camera: camera.jarvis_clean
-          calibration_points:
-            - vacuum:
-                x: 25500
-                y: 25500
-              map:
-                x: 110
-                y: 255
-            - vacuum:
-                x: 26500
-                y: 25500
-              map:
-                x: 130
-                y: 255
-            - vacuum:
-                x: 26500
-                y: 26500
-              map:
-                x: 130
-                y: 235
-      
-          zones:
-            - [[21263,31332,25715,35302]]
-            - [[25955,31061,30407,35423]]
-            - [[21233,29016,24963,31392]]
-            - [[25595,22850,30076,24925]]
-            - [[24722,24655,30076,31121],[21414,22820,24662,29136],[24752,23301,25775,24595]]    
+          map_source:
+            camera: camera.jarvis_clean
+          calibration_source:
+            camera: true
+          map_locked: true
+          map_modes:           
+            - template: vacuum_follow_path
+            - template: vacuum_clean_zone
+            - template: vacuum_goto
+            - template: vacuum_clean_zone_predefined
+              predefined_selections:
+                - zones: [[21263,31332,25715,35302]]
+                  label:
+                    text: "Matrimoniale"
+                    x: 23345
+                    y: 32821
+                    offset_y: 10
+                  icon:
+                    name: "mdi:bed-double"
+                    x: 23345
+                    y: 34389
+                - zones: [[25955,31061,30407,35423]]
+                  label:
+                    text: "Bambini"
+                    x: 27728
+                    y: 33444
+                    offset_y: 10
+                  icon:
+                    name: "mdi:bed"
+                    x: 27728
+                    y: 34020
+                - zones: [[21233,29016,24963,31392]]
+                  label:
+                    text: "Bagno 1"
+                    x: 23760
+                    y: 30237
+                    offset_y: 10
+                  icon:
+                    name: "mdi:bathtub-outline"
+                    x: 23807
+                    y: 30652
+                - zones: [[25595,22850,30076,24925]]
+                  label:
+                    text: "Bagno 2"
+                    x: 27244
+                    y: 23616
+                    offset_y: 10
+                  icon:
+                    name: "mdi:paper-roll-outline"
+                    x: 27244
+                    y: 23985
+                - zones: [[24722,24655,30076,31121],[21414,22820,24662,29136],[24752,23301,25775,24595]]    
+                  label:
+                    text: "Cucina Salotto"
+                    x: 23714
+                    y: 26869
+                    offset_y: 10
+                  icon:
+                    name: "mdi:countertop-outline"
+                    x: 23714
+                    y: 27261   
         type: conditional
         conditions:
           - entity: input_boolean.vacuum_zone_settings
