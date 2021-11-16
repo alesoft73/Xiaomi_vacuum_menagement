@@ -584,8 +584,8 @@ automation:
       - condition: template
         value_template: >-
           {{ state_attr('vacuum.jarvis_clean','battery_level')|int > 19 
-          and state_attr('vacuum.jarvis_clean','cleaned_area')|int > 5
-          and state_attr('vacuum.jarvis_clean','cleaning_time')|int > 10 
+          and states('sensor.vacuum_cleaned_area')|int > 5
+          and states('sensor.vacuum_cleaned_time')|int > 10 
           and states('sensor.vacuum_status')|trim != 'In Carica' 
           and states('vacuum.jarvis_clean')|trim != 'error'
           and states('input_select.vacuum_zone')|trim == 'Scegli la zona' }}
