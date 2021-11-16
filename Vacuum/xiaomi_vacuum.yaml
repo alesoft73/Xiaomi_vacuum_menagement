@@ -120,6 +120,7 @@ input_select:
       - Media
       - Turbo
       - Delicato
+      - Auto
   vacuum_zone:
     name: Scelta Zona
     initial: 'Scegli la zona'
@@ -249,6 +250,14 @@ script:
         data:
           entity_id: vacuum.jarvis_clean
           fan_speed: Gentle
+
+  vacuum_set_auto:
+    sequence:
+      - service: vacuum.set_fan_speed
+        data:
+          entity_id: vacuum.jarvis_clean
+          fan_speed: Auto  
+
 #Alerts
 
   vacuum_alert_start:
@@ -662,7 +671,9 @@ automation:
             script.vacuum_set_medium
           {% elif trigger.to_state.state == 'Delicato' %}
             script.vacuum_set_gentle            
-          {% endif %}    
+          {% elif trigger.to_state.state == 'Auto' %}
+            script.vacuum_set_auto 
+          {% endif %}     
 
   - id: 1ea2cbd1-4dd5-4581-b024-c081d6435730
     alias: Vacuum Schedule cleaning on weekends
