@@ -606,8 +606,8 @@ automation:
         data:
           message: >
             La Pulizia della casa è Terminata : {{now().strftime("%H:%M:%S del %d.%m.%Y")}}{{"\n"}}
-            Durata Pulizia : {{ state_attr('vacuum.jarvis_clean','cleaning_time') }} min{{"\n"}}
-            Puliti : {{ state_attr('vacuum.jarvis_clean','cleaned_area') }} m2{{"\n"}}
+            Durata Pulizia : {{ states('sensor.vacuum_cleaned_time')|int }} min{{"\n"}}
+            Puliti : {{ states('sensor.vacuum_cleaned_area')|int }} m2{{"\n"}}
             Tipo Pulizia : {{ state_attr('vacuum.jarvis_clean','fan_speed') }}{{"\n"}}
             Passate: {{ states('input_number.vacuum_passes')|int}}
           url: "your_site.duckdns.org/local/immagini/lovelace/2_vacuum.gif"
