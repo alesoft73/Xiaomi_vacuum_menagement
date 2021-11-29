@@ -87,7 +87,6 @@ elements:
       left: 50%
       top: 85%
       width: 20%
-      #animation: mymove2 20s linear infinite
     tap_action:
       action: toggle
   - type: image
@@ -96,7 +95,7 @@ elements:
     state_filter:
        'In Pulizia': opacity(0.0)
        'Ritorno alla Base': opacity(0.0)
-       'Fermo': nullopacity(0.0)
+       'Fermo': null
        'Pausa': opacity(0.0)
        'In Errore': null
        'In Carica': opacity(0.0)
@@ -112,7 +111,7 @@ elements:
     state_filter:
        'In Pulizia': null
        'Ritorno alla Base': null
-       'Fermo': null
+       'Fermo': opacity(0.0)
        'Pausa': null
        'In Errore': opacity(0.0)
        'In Carica': opacity(0.0)
