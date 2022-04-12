@@ -941,7 +941,8 @@ automation:
         entity_id: person.clark_kent
         to: "home"
         for: "00:05:00"
-    condition:        
+    condition:
+      - "{{ as_timestamp(state_attr('automation.vacuum_go_to_for_cleaner_box_2','last_triggered'))| timestamp_custom('%Y-%m-%d') not in states('sensor.date') }}"
       - condition: time
         after: "18:00:00"
         before: "22:30:00"     
