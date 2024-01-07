@@ -2,48 +2,49 @@
 
 type: picture-elements
 image: /local/image/pavimento.gif
-style: |
-  ha-card {
-    background: none;
-    --paper-item-icon-color: {% if is_state('vacuum.jarvis_clean', 'docked') %} 
-                             #C4C4C4;
-                             {% else %} 
-                             red;
-                             {% endif %}
+card_mod:
+  style: |
+    ha-card {
+      background: none;
+      --paper-item-icon-color: {% if is_state('vacuum.jarvis_clean', 'docked') %} 
+                               #C4C4C4;
+                               {% else %} 
+                               red;
+                               {% endif %}
 
-    --primary-text-color: #C4C4C4
+      --primary-text-color: #C4C4C4 
                             
-    }    
-  @keyframes fadeinout {
-    0%,100% { opacity: 0; }
-    50% { opacity: 1; }
-    }
-  @keyframes mymove {
-    from {left: 30px;}
-    to {left: 400px;}
-    }        
-  @keyframes mymove2 {
-    10%  { top:85%; left:50%; }
-    11%  { top:85%; left:50%; }
-    12%  { top:85%; left:50%; }
-    20%  { top:85%; left:60%; }
-    25%  { top:85%; left:40%; }
-    30%  { top:85%; left:30%; }
-    35%  { top:90%; left:30%; }
-    40%  { top:90%; left:40%; }
-    45%  { top:90%; left:50%; }
-    50%  { top:90%; left:60%; }
-    55%  { top:90%; left:55%; }
-    60%  { top:90%; left:50%; }
-    65%  { top:87%; left:50%; }
-    70%  { top:85%; left:50%; }
-    75%  { top:85%; left:55%; }
-    80%  { top:84%; left:50%; }
-    85%  { top:83%; left:60%; }
-    90%  { top:84%; left:65%; }
-    95%  { top:85%; left:55%; }
-    100%  { top:85%; left:50%; }
-    }            
+      }    
+    @keyframes fadeinout {
+      0%,100% { opacity: 0; }
+      50% { opacity: 1; }
+      }
+    @keyframes mymove {
+      from {left: 30px;}
+      to {left: 400px;}
+      }        
+    @keyframes mymove2 {
+      10%  { top:85%; left:50%; }
+      11%  { top:85%; left:50%; }
+      12%  { top:85%; left:50%; }
+      20%  { top:85%; left:60%; }
+      25%  { top:85%; left:40%; }
+      30%  { top:85%; left:30%; }
+      35%  { top:90%; left:30%; }
+      40%  { top:90%; left:40%; }
+      45%  { top:90%; left:50%; }
+      50%  { top:90%; left:60%; }
+      55%  { top:90%; left:55%; }
+      60%  { top:90%; left:50%; }
+      65%  { top:87%; left:50%; }
+      70%  { top:85%; left:50%; }
+      75%  { top:85%; left:55%; }
+      80%  { top:84%; left:50%; }
+      85%  { top:83%; left:60%; }
+      90%  { top:84%; left:65%; }
+      95%  { top:85%; left:55%; }
+      100%  { top:85%; left:50%; }
+      }              
 elements:
   - type: image
     entity: vacuum.jarvis_clean
@@ -354,11 +355,12 @@ elements:
             state: "on"
         card:                  
           type: custom:xiaomi-vacuum-map-card
-          style: |
-            ha-card {
-              background: none;                
-              box-shadow: 0px 0px 0px 0px rgba(255, 255, 240, 0.0);
-              }            
+          card_mod:
+            style: |
+              ha-card {
+                background: none;                
+                box-shadow: 0px 0px 0px 0px rgba(255, 255, 240, 0.0);
+                }            
           entity: vacuum.jarvis_clean
           map_source:
             camera: camera.jarvis_clean
@@ -430,11 +432,12 @@ elements:
           title: ""
           show_header_toggle: false
           state_color: true
-          style: |
-            ha-card {
-              background: none;                
-              box-shadow: 0px 0px 0px 0px rgba(255, 255, 240, 0.0);
-              }            
+          card_mod:
+            style: |
+              ha-card {
+                background: none;                
+                box-shadow: 0px 0px 0px 0px rgba(255, 255, 240, 0.0);
+                }            
           entities:
             - input_select.vacuum_fan_speed_select
             - input_select.vacuum_zone
