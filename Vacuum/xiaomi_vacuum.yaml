@@ -133,7 +133,7 @@ input_select:
       - Solo Bagni
       - Camera Matrimoniale
       - Cameretta
-      - Zona Guirno
+      - Zona Giorno
       - Tutta casa
 
 input_number:
@@ -766,7 +766,7 @@ automation:
             script.vacuum_camera
           {% elif states('input_select.vacuum_zone') == "Cameretta" %}
             script.vacuum_cameretta
-          {% elif states('input_select.vacuum_zone') == "Zona giorno" %}
+          {% elif states('input_select.vacuum_zone') == "Zona Giorno" %}
             script.vacuum_zona_giorno
           {% elif states('input_select.vacuum_zone') == "Solo Bagni" %}
             script.vacuum_bagni
