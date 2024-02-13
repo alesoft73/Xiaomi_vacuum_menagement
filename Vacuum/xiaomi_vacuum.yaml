@@ -134,7 +134,7 @@ input_select:
       - Camera Matrimoniale
       - Cameretta
       - Zona Giorno
-      - Tutta casa
+      - Tutta Casa
 
 input_number:
   vacuum_passes:
