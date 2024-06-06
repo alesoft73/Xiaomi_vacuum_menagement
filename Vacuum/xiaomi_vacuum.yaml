@@ -815,7 +815,7 @@ automation:
              🩸 Pulizia Filtro, mancano {{  (states('sensor.jarvis_clean_filter_left')|float/3600)|int(default=0) }} h alla saturazione
              {% endif %}
              {%- if (states('sensor.jarvis_clean_sensor_dirty_left')|float/3600)|int(default=0) <= 5 %}
-             🧽 Pulizia Sensori, mancano {{  (states('sensor.jarvis_clean_sensor_dirty_left')|float/3600)|int(default=0) }} h alla saturazione
+             🧽 Pulizia Sensori, mancano {{(states('sensor.jarvis_clean_sensor_dirty_left')|float/3600)|int(default=0)}} h alla saturazione
              {% endif %}
 
       - service: notify.telegram
@@ -840,7 +840,7 @@ automation:
             Pulizia Filtro, mancano {{ state_attr('vacuum.jarvis_clean','filter_left')|int(default=0) }} ore alla saturazione
             {% endif %}
             {%- if (states('sensor.jarvis_clean_sensor_dirty_left')|float/3600)|int(default=0) <= 5 %}
-            Pulizia Sensori, mancano {{ state_attr('vacuum.jarvis_clean','sensor_dirty_left')|int(default=0) }} ore alla saturazione
+            Pulizia Sensori, mancano {{(states('sensor.jarvis_clean_sensor_dirty_left')|float/3600)|int(default=0)}} ore alla saturazione
             {% endif %} 
 
   - id: 70fec8be-ad27-451f-a976-77eb55e92e18
